@@ -9,3 +9,4 @@ for running test use command
 
 for running parser use command
 - docker-compose run --rm app python pars/parser.py
+

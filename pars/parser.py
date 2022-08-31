@@ -47,3 +47,5 @@ Base.metadata.create_all(engine)
 if __name__ == '__main__':
     url = 'http://gazeta.ru'
     pars(url)
+
+

@@ -10,3 +10,5 @@ class Info(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     url = Column(String)
+
+

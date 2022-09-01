@@ -1,12 +1,14 @@
+import os
+
 import requests
 import bs4
 from requests.exceptions import MissingSchema
 from sqlalchemy.orm import Session
 
-from conf import engine
+from conf import get_engine
 from models import Info, Base
 
-session = Session(bind=engine)
+session = Session(bind=get_engine())
 
 
 def get_url_and_html(url, link):
@@ -42,10 +44,8 @@ def pars(url):
         raise Exception("site not available")
 
 
-Base.metadata.create_all(engine)
+Base.metadata.create_all(get_engine())
 
 if __name__ == '__main__':
-    url = 'http://gazeta.ru'
+    url = os.environ.get('URL')
     pars(url)
-
-

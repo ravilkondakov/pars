@@ -1,8 +1,9 @@
-
 import unittest
 
 import bs4
 import requests
+
+from pars.parser import get_url_and_html
 
 
 class TestInfo(unittest.TestCase):
@@ -13,24 +14,11 @@ class TestInfo(unittest.TestCase):
         self.bad_req = requests.get(self.bad_url)
         self.html = bs4.BeautifulSoup(self.req.text, features='html.parser')
 
-    def test_status_code(self):
-        self.assertEqual(200, self.req.status_code)
-
-    def test_bad_status_code(self):
-        self.assertEqual(404, self.bad_req.status_code)
-
-    def test_body(self):
-        self.assertEqual('Главные новости - Газета.Ru', self.html.title.string)
-
-    def test_urls(self):
-        link_body = self.html.find_all('a')[2]
-        link = link_body.get('href')
-        self.assertEqual('/news/', link)
-        full_link = str(self.url) + str(link)
-        self.assertEqual(full_link, 'https://www.gazeta.ru//news/')
+    def test_get_url_and_html(self):
+        url, html = get_url_and_html(self.url, self.html.find('a'))
+        self.assertEqual(url, self.url)
+        self.assertEqual(html, self.html)
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
